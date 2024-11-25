@@ -54,7 +54,11 @@ public final class Transformers {
      * @param <O> output elements type
      */
     public static <I, O> List<O> transform(final Iterable<I> base, final Function<I, O> transformer) {
-        return null;
+        List<O> ls = new ArrayList<>();
+        while (base.iterator().hasNext()) {
+            ls.add(transformer.call(base.iterator().next()));
+        }
+        return ls;
     }
 
     /**
@@ -70,7 +74,11 @@ public final class Transformers {
      * @param <I> type of the collection elements
      */
     public static <I> List<? extends I> flatten(final Iterable<? extends Collection<? extends I>> base) {
-        return null;
+        List<I> ls = new ArrayList<>();
+        while (base.iterator().hasNext()) {
+            ls.addAll(base.iterator().next());
+        }
+        return ls;
     }
 
     /**
@@ -87,7 +95,14 @@ public final class Transformers {
      * @param <I> elements type
      */
     public static <I> List<I> select(final Iterable<I> base, final Function<I, Boolean> test) {
-        return null;
+        List<I> ls = new ArrayList<>();
+        while (base.iterator().hasNext()) {
+            I var = base.iterator().next();
+            if(test.call(var)) {
+                ls.add(var);
+            }
+        }
+        return ls;
     }
 
     /**
@@ -103,6 +118,13 @@ public final class Transformers {
      * @param <I> elements type
      */
     public static <I> List<I> reject(final Iterable<I> base, final Function<I, Boolean> test) {
-        return null;
+        List<I> ls = new ArrayList<>();
+        while (base.iterator().hasNext()) {
+            I var = base.iterator().next();
+            if(!test.call(var)) {
+                ls.add(var);
+            }
+        }
+        return ls;
     }
 }
