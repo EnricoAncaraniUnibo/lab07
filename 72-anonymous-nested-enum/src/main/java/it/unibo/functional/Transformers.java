@@ -55,8 +55,10 @@ public final class Transformers {
      */
     public static <I, O> List<O> transform(final Iterable<I> base, final Function<I, O> transformer) {
         List<O> ls = new ArrayList<>();
-        while (base.iterator().hasNext()) {
-            ls.add(transformer.call(base.iterator().next()));
+        var iterator = base.iterator();
+        while (iterator.hasNext()) {
+            I var = iterator.next();
+            ls.add(transformer.call(var));
         }
         return ls;
     }
@@ -75,8 +77,10 @@ public final class Transformers {
      */
     public static <I> List<? extends I> flatten(final Iterable<? extends Collection<? extends I>> base) {
         List<I> ls = new ArrayList<>();
-        while (base.iterator().hasNext()) {
-            ls.addAll(base.iterator().next());
+        var iterator = base.iterator();
+        while (iterator.hasNext()) {
+            var var = iterator.next();
+            ls.addAll(var);
         }
         return ls;
     }
@@ -96,8 +100,9 @@ public final class Transformers {
      */
     public static <I> List<I> select(final Iterable<I> base, final Function<I, Boolean> test) {
         List<I> ls = new ArrayList<>();
-        while (base.iterator().hasNext()) {
-            I var = base.iterator().next();
+        var iterator = base.iterator();
+        while (iterator.hasNext()) {
+            I var = iterator.next();
             if(test.call(var)) {
                 ls.add(var);
             }
@@ -119,8 +124,9 @@ public final class Transformers {
      */
     public static <I> List<I> reject(final Iterable<I> base, final Function<I, Boolean> test) {
         List<I> ls = new ArrayList<>();
-        while (base.iterator().hasNext()) {
-            I var = base.iterator().next();
+        var iterator = base.iterator();
+        while (iterator.hasNext()) {
+            I var = iterator.next();
             if(!test.call(var)) {
                 ls.add(var);
             }
